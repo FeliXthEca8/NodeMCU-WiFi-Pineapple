@@ -3,9 +3,9 @@
 #include <DNSServer.h>
 
 // Network configuration
-const char *ssid = "Free WiFi";
-IPAddress apIP(192, 168, 86, 1);
-IPAddress netMsk(255, 255, 225, 0);
+const char *ssid = "Free WiFi Hotspot";
+IPAddress apIP(192, 168, 4, 1);
+IPAddress netMsk(255, 255, 255, 0);
 const byte DNS_PORT = 53;
 
 // Create instances of the server and DNS server
